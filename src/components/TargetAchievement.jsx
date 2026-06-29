@@ -72,7 +72,7 @@ export default function TargetAchievement({ groupAchieved, targets, selectedMont
       <div className="grid grid-cols-[1fr_1fr_1fr] gap-2 mb-2 px-1">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Group</span>
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider text-center">Sales</span>
-        <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider text-center">Revenue</span>
+        <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider text-center">MRC</span>
       </div>
 
       <div className="space-y-3 flex-1">
@@ -131,42 +131,42 @@ export default function TargetAchievement({ groupAchieved, targets, selectedMont
                   )}
                 </div>
 
-                {/* Revenue achieved */}
+                {/* MRC achieved */}
                 <div
                   className="relative text-center cursor-pointer"
-                  onMouseEnter={() => setHovered({ groupKey: gk, type: "revenue" })}
+                  onMouseEnter={() => setHovered({ groupKey: gk, type: "mrc" })}
                   onMouseLeave={() => setHovered(null)}
                 >
                   <div className="text-sm font-semibold tabular-nums">
-                    <span style={{ color: tierColor(pct(achieved.revenue, target.revenue)) }}>{fmt(achieved.revenue)}</span>
+                    <span style={{ color: tierColor(pct(achieved.mrc, target.revenue)) }}>{fmt(achieved.mrc)}</span>
                     <span className="text-gray-500 font-normal"> / {target.revenue ? fmt(target.revenue) : "—"}</span>
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-1.5 mt-1">
                     <div
                       className="h-1.5 rounded-full transition-all"
                       style={{
-                        width: `${barWidth(achieved.revenue, target.revenue)}%`,
-                        backgroundColor: tierColor(pct(achieved.revenue, target.revenue)),
+                        width: `${barWidth(achieved.mrc, target.revenue)}%`,
+                        backgroundColor: tierColor(pct(achieved.mrc, target.revenue)),
                       }}
                     />
                   </div>
-                  <span className="text-[10px] font-medium" style={{ color: tierColor(pct(achieved.revenue, target.revenue)) }}>
-                    {target.revenue ? `${pct(achieved.revenue, target.revenue)}%` : "—"}
+                  <span className="text-[10px] font-medium" style={{ color: tierColor(pct(achieved.mrc, target.revenue)) }}>
+                    {target.revenue ? `${pct(achieved.mrc, target.revenue)}%` : "—"}
                   </span>
 
                   {/* Tooltip */}
-                  {hovered?.groupKey === gk && hovered?.type === "revenue" && (
+                  {hovered?.groupKey === gk && hovered?.type === "mrc" && (
                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-50 bg-gray-900 border border-gray-700 rounded-lg shadow-xl p-3 min-w-[180px] text-left">
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-1.5">Revenue Breakdown</p>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-1.5">MRC Breakdown</p>
                       {Object.entries(achieved.subCategories || {}).map(([cat, d]) => (
                         <div key={cat} className="flex justify-between text-xs mb-0.5">
                           <span className="text-gray-300">{cat}</span>
-                          <span className="text-white font-medium tabular-nums">AED {fmt(d.revenue)}</span>
+                          <span className="text-white font-medium tabular-nums">AED {fmt(d.mrc)}</span>
                         </div>
                       ))}
                       <div className="border-t border-gray-700 mt-1.5 pt-1 flex justify-between text-xs">
                         <span className="text-gray-400">Total</span>
-                        <span className="text-white font-semibold">AED {fmt(achieved.revenue)}</span>
+                        <span className="text-white font-semibold">AED {fmt(achieved.mrc)}</span>
                       </div>
                     </div>
                   )}
