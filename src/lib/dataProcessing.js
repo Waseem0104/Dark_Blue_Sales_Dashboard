@@ -154,9 +154,10 @@ export function processData(rawData, selectedMonth, operationalCosts = {}) {
   const categoryMap = {};
   deals.forEach((d) => {
     if (!categoryMap[d.category])
-      categoryMap[d.category] = { revenue: 0, profit: 0, count: 0 };
+      categoryMap[d.category] = { revenue: 0, profit: 0, mrc: 0, count: 0 };
     categoryMap[d.category].revenue += d.revenue;
     categoryMap[d.category].profit += d.profit;
+    categoryMap[d.category].mrc += d.mrc;
     categoryMap[d.category].count++;
   });
 
@@ -224,6 +225,7 @@ export function processData(rawData, selectedMonth, operationalCosts = {}) {
     let groupSales = 0;
     let groupRevenue = 0;
     let groupProfit = 0;
+    let groupMrc = 0;
     const subCategories = {};
     cats.forEach((cat) => {
       const catData = categoryMap[cat];
@@ -231,9 +233,11 @@ export function processData(rawData, selectedMonth, operationalCosts = {}) {
         groupSales += catData.count;
         groupRevenue += catData.revenue;
         groupProfit += catData.profit;
+        groupMrc += catData.mrc;
         subCategories[cat] = {
           sales: catData.count,
           revenue: Math.round(catData.revenue),
+          mrc: Math.round(catData.mrc),
           profit: Math.round(catData.profit),
         };
       }
@@ -242,6 +246,7 @@ export function processData(rawData, selectedMonth, operationalCosts = {}) {
       label: GROUP_LABELS[groupKey],
       sales: groupSales,
       revenue: Math.round(groupRevenue),
+      mrc: Math.round(groupMrc),
       profit: Math.round(groupProfit),
       subCategories,
     };
